@@ -1,11 +1,39 @@
 from metodoconstrutor import Conta_corrente
 
+from metodoconstrutor import Conta_corrente
 
+# Criar conta 
+while True:
+    try:
+        titular = input("Digite o nome do titular: ")
+        idade = int(input("Digite a idade do titular: "))
+        cpf = input("Digite o CPF do titular: ")
+        saldo = float(input("Digite o saldo inicial: "))
+        break
+    except ValueError:
+        print("Valores inválidos, tente novamente")
 
-clienteum = Conta_corrente(Titular='Thiago Henrique Sousa Melo', Idade=16, Cpf="011.111.111-11", Saldo=150000.0)
+# Criando a conta
+clienteum = Conta_corrente(Titular=titular, Idade=idade, Cpf=cpf, Saldo=saldo)
+print(f"Conta de {clienteum._titular} foi criada com sucesso!\n")
 
+# Método para sacar
+clienteum.saque()
 
-clienteum.transferir()
+# Método para mostrar informações
 clienteum.informacoes()
+
+#Método para Sacar
+clienteum.saque()
+
+
+
+
+
+
+
+
+
+
 
 
