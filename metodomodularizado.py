@@ -17,8 +17,8 @@ while True:
 clienteum = Conta_corrente(Titular=titular, Idade=idade, Cpf=cpf, Saldo=saldo)
 print(f"Conta de {clienteum._titular} foi criada com sucesso!\n")
 
-# Método para sacar
-clienteum.saque()
+# Método para transferir
+clienteum.tranferencia()
 
 # Método para mostrar informações
 clienteum.informacoes()
