@@ -1,6 +1,6 @@
 from metodoconstrutor import Conta_corrente
 
-from metodoconstrutor import Conta_corrente
+
 
 # Criar conta 
 while True:
