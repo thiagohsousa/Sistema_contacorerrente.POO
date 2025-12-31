@@ -1,121 +1,87 @@
+#Importando a função Randit para gerar o Id
 from random import randint
 
-#Classe para criar uma conta corrente
-class Conta_corrente():
-      def __init__(self, titular="", idade=0, cpf="", saldo=0):
-         while True:
+#Criando a classe conta corrente para criar a conta
+class Conta_corrente:
+    def __init__(self):
+        while True:
             try:
                 self._titular = input("Digite o nome do titular: ")
-                self._idade =  int(input("Digite a idade do titular: "))
+                self._idade = int(input("Digite a idade do titular: "))
                 self._cpf = input("Digite o CPF do titular: ")
-                self._saldo =  float(input("Digite o saldo inicial: "))
+                self._saldo = float(input("Digite o saldo inicial: "))
                 self._conta_id = self.gerar_id()
+                print("Conta criada com sucesso!")
                 break
-            except:
-               print("Idade ou Cpf Invalidos, Tente Novamente!!")
+            except ValueError:
+                print("Idade ou saldo inválidos, tente novamente.")
 
-    
-
-
-
-   #METODO GETTER: Le o valor
-      @property
-      def saldo(self):
-            return self._saldo
-
-    #Metodo SETTER: Altera o Valor e trata os erros
-      @saldo.setter
-      def novo_saldo(self, novo_saldo):
-        if isinstance(novo_saldo, (int, float)) and novo_saldo >= 0:
-            self._saldo = novo_saldo
-        else:
-            print("Saldo Invalido!!!")
-
-    #logica sem loop para transferir, incluirei na função transferir.
-      def funcao_transferir(self):
-      
-        transferencia = float(input("Digite o quanto vc deseja transferir: "))
-        if self._saldo >= transferencia:
-            self._saldo -= transferencia
-            print(F"""-------------------------------
-TRANSFERENCIA CONCLUIDA 
--------------------------------
-
-SALDO DISPONIVEL: {self._saldo}
--------------------------------""")
-        
-            
-        else:
-            print("Saldo Insuficiente, Tente Novamente")
-
-     #função para transferir  com o loop.
-      def tranferencia(self):
-        while True:
-            self.funcao_transferir()
-            continuar = input("Deseja Continuar? [S/N]: ")
-            if continuar != "S":
-                print("OPERAÇÃO FINALIZADA")
-                break
-
-
-   #METODO GETTER: Le o valor
-      @property
-      def sacar(self):
+    # Getter e setter do saldo
+    @property
+    def saldo(self):
         return self._saldo
-    #Metodo SETTER: Altera o Valor e trata os erros
-      @sacar.setter
-      def saldo_saque(self, sacar):
-        if isinstance(sacar, (int, float)) and sacar >= 0:
-            self._saldo = sacar
-    #Logica sem Lopp para sacar, incluirei ela na função Saque
-      def funcao_saque(self):
-        sacar = float(input("Digite quanto vc deseja sacar: "))
-        if sacar <= self._saldo:
-            self._saldo -= sacar
-            print(f"""-------------------------------
-Saque Realizado
-Seu Novo saldo é de {self._saldo}
--------------------------------""")
+
+    @saldo.setter
+    def saldo(self, valor):
+        if isinstance(valor, (int, float)) and valor >= 0:
+            self._saldo = valor
         else:
-            print("Saque invalido!!!")
-    #Funçaõ para sacar com loop
-      def saque(self):
+            print("Saldo inválido!")
+
+    # Transferência
+    def transferir(self):
         while True:
-            self.funcao_saque()
-            continuar =  continuar = input("Deseja Continuar? [S/N]: ")
-            if continuar != "S":
+            try:
+                transferencia = float(input("Digite o valor para transferir: "))
+                if self._saldo >= transferencia:
+                    self._saldo -= transferencia
+                    print(f"""-------------------------------
+TRANSFERÊNCIA CONCLUÍDA
+SALDO DISPONÍVEL: {self._saldo}
+-------------------------------""")
+                else:
+                    print("Saldo insuficiente, tente novamente!")
+            except ValueError:
+                print("Digite um número válido!")
+
+            continuar = input("Deseja continuar? [S/N]: ").upper()
+            if continuar == "N":
                 print("OPERAÇÃO FINALIZADA")
                 break
-            
 
-    
+    # Saque
+    def saque(self):
+        while True:
+            try:
+                valor_saque = float(input("Digite o valor para sacar: "))
+                if valor_saque <= self._saldo:
+                    self._saldo -= valor_saque
+                    print(f"""-------------------------------
+Saque realizado
+Novo saldo: {self._saldo}
+-------------------------------""")
+                else:
+                    print("Saldo insuficiente!")
+            except ValueError:
+                print("Digite um número válido!")
 
+            continuar = input("Deseja continuar? [S/N]: ").upper()
+            if continuar != "S":
+                print("Operação finalizada")
+                break
 
-
-
-
-#Função que Printa todas as informações da conta
-      def informacoes(self):
-        print(f"""------------------------------- 
-INFORMAÇÕES
+    # Informações da conta
+    def informacoes(self):
+        print(f"""-------------------------------
+INFORMAÇÕES DA CONTA
 -------------------------------
-          
-1 - Titular: {self._titular}
+Titular: {self._titular}
+CPF: {self._cpf}
+Idade: {self._idade}
+ID da Conta: {self._conta_id}
+Saldo: {self._saldo}
+-------------------------------""")
 
-
-2 - Cpf: {self._cpf}
-
-3 - Idade: {self._idade}
-
-4- Id da Conta: {self._conta_id}
-
-5 - Saldo Disponivel: {self._saldo}""")
-  
-
-
-
-    
-    
-
-      def gerar_id(self):
+    # Gerar Id
+    def gerar_id(self):
         return randint(1, 1000)
