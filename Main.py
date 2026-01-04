@@ -1,5 +1,5 @@
 #Imporatando o Minha Classe
-from metodoconstrutor import Conta_corrente
+from Classes import Conta_corrente
 
 
 
